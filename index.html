@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gerenciador de tarefas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 id="logo"><img src="images.jpg" alt="logo">gerenciador generioco</h1>
+
+    <ul id="n-sei">
+        <a href="#" id="sobre">sobre</a>
+        <a href="#" id="contato">contato</a>
+    </ul>
+
+    <ul id="sidebar-sobre" class="sidebar">
+        <li>Empresa</li>
+        <li>Clientes</li>
+    </ul>
+
+    <ul id="sidebar-contato" class="sidebar">
+        <li>Email</li>
+        <li>Contato</li>
+    </ul>
+    <label for="pesquisa">Pesquisar:</label>
+        <input type="text" name="pesquisa" id="pesquisa" pleaceholder="pesquisar">
+
+    </header>
+    <main>
+        <p>Um gerenciador de tarefas para facilitar a sua organização em projetos</p>
+        <button onclick="window.location='cadastro.html'"">Cadastrar</button>
+        <h3 hidden>projetos <button id="projeto" onclick="window.location='inicio.html'">novo projeto</button></h3>
+        <hr>
+    </main>
+    <footer>
+        <h4> &copy;2026 Todos os direitos reservados. Marcos e Gustavo</h4>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
