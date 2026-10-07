@@ -1,21 +1,23 @@
+
 const btnsobre = document.getElementById('sobre');
 const menuVerticalLicencas = document.getElementById('sidebar-sobre');
 const btnContato = document.getElementById('contato');
 const menuVerticalContato = document.getElementById('sidebar-contato');
 
-// Adiciona o evento de clique no botão "Sobre"
-btnsobre.addEventListener('click', function(event) {
-    abreMenu(event, menuVerticalLicencas);
-});
+if (btnsobre && menuVerticalLicencas) {
+    btnsobre.addEventListener('click', function(event) {
+        abreMenu(event, menuVerticalLicencas);
+    });
+}
 
-btnContato.addEventListener('click', function(event) {
-    abreMenu(event, menuVerticalContato);
-});
+if (btnContato && menuVerticalContato) {
+    btnContato.addEventListener('click', function(event) {
+        abreMenu(event, menuVerticalContato);
+    });
+}
 
-//Funcão geral para abrir/fechar TODOS OS menu vertical
 function abreMenu(event, menu) {
-    event.preventDefault(); // Evita que a página recarregue ao clicar no link
-    // Liga/Desliga a classe 'active' do menu vertical
+    event.preventDefault();
     menu.classList.toggle('active');
 }
 
@@ -25,42 +27,112 @@ function fechaMenu(event, menu, btn) {
     }
 }
 
-// Opcional: Fecha o menu se o usuário clicar fora dele
 document.addEventListener('click', function(event) {
-    fechaMenu(event, menuVerticalLicencas, sobre);
-    fechaMenu(event, menuVerticalContato, contato);
+
+    if (menuVerticalLicencas && btnsobre) {
+        fechaMenu(event, menuVerticalLicencas, btnsobre);
+    }
+
+    if (menuVerticalContato && btnContato) {
+        fechaMenu(event, menuVerticalContato, btnContato);
+    }
+
 });
+
 
 const form = document.getElementById('formulario');
 
-const cadastro = document.getElementById('cadastro');
-const login = document.getElementById('login');
-if(form){
-from.addEventListener('submit', function () {
+if (form) {
 
-    const nome = document.getElementById('Nome').value;
-    const cpf = document.getElementById('cpf').value;
-    const end = document.getElementById('End').value;
-    const email = document.getElementById('email').value;
-    const senha = document.getElementById('senha').value;
+    form.addEventListener('submit', function(event) {
 
-    const texto = `Informações do cadastro:\n\n` +
-                    `Nome: ${nome}\n` +
-                    `CPF: ${cpf}\n` +
-                    `Endereço: ${end}\n` +
-                    `Email: ${email}\n` +
-                    `Senha: ${senha}\n`;
+        event.preventDefault();
 
-    const arquivo = new Blob([texto], {
-        type: "text/plain;charset=utf-8"
+        const nome = document.getElementById('Nome').value;
+        const cpf = document.getElementById('cpf').value;
+        const end = document.getElementById('End').value;
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+
+            const usuario = {
+        nome: nome,
+        cpf: cpf,
+        endereco: end,
+        email: email,
+        senha: senha
+    };
+
+    const usuarioJSON = JSON.stringify(usuario);
+
+    localStorage.setItem('usuario', usuarioJSON);
+
+
+        const texto =
+            `Informações do cadastro:\n\n` +
+            `Nome: ${nome}\n` +
+            `CPF: ${cpf}\n` +
+            `Endereço: ${end}\n` +
+            `Email: ${email}\n` +
+            `Senha: ${senha}\n`;
+
+        const arquivo = new Blob([texto], {
+            type: "text/plain;charset=utf-8"
+        });
+
+        const link = document.createElement('a');
+
+        link.href = URL.createObjectURL(arquivo);
+        link.download = 'cadastro.txt';
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(link.href);
+
+        alert('Cadastro realizado com sucesso!');
+
+        window.location.href = 'login.html';
     });
 
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(arquivo);
-    link.download = 'cadastro.txt'; 
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+const formLogin = document.getElementById('formLogin');
 
-})};
+if (formLogin) {
+
+    formLogin.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+
+        const dados = localStorage.getItem('usuario');
+
+        if (!dados) {
+            alert('Nenhum usuário cadastrado!');
+            return;
+        }
+
+        const usuario = JSON.parse(dados);
+
+        if (email === usuario.email && senha === usuario.senha) {
+
+            alert(`Login realizado com sucesso! Bem-vindo, ${usuario.nome}!`);
+
+            localStorage.setItem('logado', 'true');
+
+            window.location.href = 'index.html';
+
+        } else {
+
+            alert('Email ou senha incorretos!');
+
+        }
+
+    });
+}
+
+
+}
+
+
+

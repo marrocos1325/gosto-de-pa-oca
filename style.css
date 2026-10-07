@@ -22,14 +22,6 @@ main{
     margin: 0px;
     margin-top: 20px;
 }
-#pesquisa, label{
-    margin-left: 650px;
-    padding: 5px;
-    border-radius: 5px;
-    width: 600px;
-    display: flex;
-    margin-top: -7px;
-}
 #projeto{
     margin-left: 800px;
     margin-top: -30px;
@@ -70,6 +62,11 @@ button{
     margin-left: 300px;
     margin-top: 10px;
     display: flex;
+    trasition: 0.3s;
+}
+button:hover{
+    background-color: #93ab5d;
+    color: white;
 }
 .sidebar{
     top: 50px;
@@ -124,8 +121,18 @@ footer{
     border-radius: 10px;
     border: 1px solid #93ab5d;
 }
-label,input{
+input{
     margin-left: 300px;
+    transition: 0.3s;
+    height: 30px;
+    width: 400px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+input:focus{
+    border: 2px solid #93ab5d;
+    outline: none;
+
 }
 h3{
     margin-left: 240px;
